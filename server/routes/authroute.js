@@ -4,18 +4,17 @@ const authMiddleware = require("../middleware/AuthMiddleware");
 const { getUserReview, createReview } = require("../controller/reviewController");
 const { uploadavater } = require("../controller/handleuploadavater");
 const { createCommunityPost } = require("../controller/communityController");
-const router = express.Router();
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.get("/profile", authMiddleware, getUserProfile);
-router.post("/update-rewards", authMiddleware, updateRewards);
-router.get("/logout", logoutUser);
-router.post("/avater" , authMiddleware,uploadavater);
-router.post("/community", authMiddleware , createCommunityPost);
-router.post("/testing", authMiddleware, (req, res) => {
+const authroutes = express.Router();
+authroutes.post("/register", registerUser);
+authroutes.post("/login", loginUser);
+authroutes.get("/profile", authMiddleware, getUserProfile);
+authroutes.post("/update-rewards", authMiddleware, updateRewards);
+authroutes.get("/logout", logoutUser);
+authroutes.post("/avater" , authMiddleware,uploadavater);
+authroutes.post("/community", authMiddleware , createCommunityPost);
+authroutes.post("/testing", authMiddleware, (req, res) => {
     res.json({ message: "Testing route is working!" });
 });
-//review 
-router.post("/createReview", authMiddleware, createReview);
-module.exports = router;
-
+//review
+authroutes.post("/createReview", authMiddleware, createReview);
+module.exports = authroutes;
